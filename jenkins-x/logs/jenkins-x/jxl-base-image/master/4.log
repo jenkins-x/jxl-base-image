@@ -1,0 +1,31 @@
+
+Showing logs for build [32mjenkins-x-jxl-base-image-master-zqzpx-4[0m stage [32mfrom-build-pack[0m and container [32mstep-credential-initializer-g4kn2[0m
+{"level":"warn","ts":1587112795.9208412,"logger":"fallback-logger","caller":"logging/config.go:69","msg":"Fetch GitHub commit ID from kodata failed: \"ref: refs/heads/0.8.0-**-support-backwards-incompats\" is not a valid GitHub commit ID"}
+{"level":"info","ts":1587112795.9213734,"logger":"fallback-logger","caller":"creds-init/main.go:40","msg":"Credentials initialized."}
+
+Showing logs for build [32mjenkins-x-jxl-base-image-master-zqzpx-4[0m stage [32mfrom-build-pack[0m and container [32mstep-working-dir-initializer-krjwl[0m
+{"level":"warn","ts":1587112796.9198947,"logger":"fallback-logger","caller":"logging/config.go:69","msg":"Fetch GitHub commit ID from kodata failed: open /var/run/ko/HEAD: no such file or directory"}
+{"level":"info","ts":1587112796.9213696,"logger":"fallback-logger","caller":"bash/main.go:64","msg":"Successfully executed command \"sh -c mkdir -p /workspace/source\"; output "}
+
+Showing logs for build [32mjenkins-x-jxl-base-image-master-zqzpx-4[0m stage [32mfrom-build-pack[0m and container [32mstep-place-tools[0m
+
+Showing logs for build [32mjenkins-x-jxl-base-image-master-zqzpx-4[0m stage [32mfrom-build-pack[0m and container [32mstep-git-source-jenkins-x-jxl-base-image-master-zqzpx-b4p6h[0m
+{"level":"warn","ts":1587112803.0307403,"logger":"fallback-logger","caller":"logging/config.go:69","msg":"Fetch GitHub commit ID from kodata failed: \"ref: refs/heads/0.8.0-**-support-backwards-incompats\" is not a valid GitHub commit ID"}
+{"level":"info","ts":1587112806.000433,"logger":"fallback-logger","caller":"git/git.go:103","msg":"Successfully cloned https://github.com/jenkins-x/**l-base-image.git @ v0.0.4 in path /workspace/source"}
+
+Showing logs for build [32mjenkins-x-jxl-base-image-master-zqzpx-4[0m stage [32mfrom-build-pack[0m and container [32mstep-git-merge[0m
+Using SHAs from PULL_REFS=master:4e61233041a4758a446c58cba3e20e416698f693
+WARNING: no SHAs to merge, falling back to initial cloned commit
+
+Showing logs for build [32mjenkins-x-jxl-base-image-master-zqzpx-4[0m stage [32mfrom-build-pack[0m and container [32mstep-setup-jx-git-credentials[0m
+Cloning the Jenkins X versions repo https://github.com/jenkins-x/**r-versions.git with ref refs/heads/master to /builder/home/.**/jenkins-x-versions
+Generated Git credentials file /workspace/xdg_config/git/credentials
+
+Showing logs for build [32mjenkins-x-jxl-base-image-master-zqzpx-4[0m stage [32mfrom-build-pack[0m and container [32mstep-build-container-build[0m
+no GCP SA specified
+building container image version: 0.0.4
+Creating temporary tarball archive of 9 file(s) totalling 16.1 MiB before compression.
+Uploading tarball of [.] to [gs://jenkinsxio-labs-private_cloudbuild/source/1587112811.52-07d68f5914ec4fd4aca8a7d5c19ffa81.tgz]
+ERROR: (gcloud.builds.submit) User [flash-tk@**-labs-infra.iam.gserviceaccount.com] does not have permission to access project [jenkinsxio-labs-private] (or it may not exist): The caller does not have permission
+[31m
+Pipeline failed on stage 'from-build-pack' : container 'step-build-container-build'. The execution of the pipeline has stopped.[0m
