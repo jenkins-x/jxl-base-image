@@ -2,6 +2,8 @@ FROM centos:7
 
 RUN mkdir /out
 
+ENV HELM_ANNOTATE_VERSION 0.0.11
+
 # helmfile
 ENV HELMFILE_VERSION 0.111.0
 RUN curl -LO https://github.com/roboll/helmfile/releases/download/v${HELMFILE_VERSION}/helmfile_linux_amd64 && \
@@ -52,6 +54,11 @@ RUN git clone https://github.com/jenkins-x/bdd-jx.git && \
   make testbin && \
   mv build/bddjx /out/bddjx
 
+RUN git clone https://github.com/jenkins-x/helm-annotate.git && \
+  cd helm-annotate && \
+  make build && \
+  mv build/helm-annotate /out/helm-annotate
+
 # Adding the package path to local
 ENV PATH $PATH:/usr/local/gcloud/google-cloud-sdk/bin
 
@@ -68,9 +75,11 @@ ENV PATH /usr/local/bin:/usr/local/git/bin:$PATH:/usr/local/gcloud/google-cloud-
 
 RUN mkdir -p $HOME/.jx/plugins/bin && \
     cp /usr/local/bin/helm $HOME/.jx/plugins/bin/helm-${HELM3_VERSION} && \
+    cp /usr/local/bin/helm-annotate $HOME/.jx/plugins/bin/helm-annotate-${HELM_ANNOTATE_VERSION} && \
     cp /usr/local/bin/helmfile $HOME/.jx/plugins/bin/helmfile-${HELMFILE_VERSION} && \
     rm /usr/local/bin/helm /usr/local/bin/helmfile && \
     ln -s $HOME/.jx/plugins/bin/helm-${HELM3_VERSION} /usr/local/bin/helm && \
+    ln -s $HOME/.jx/plugins/bin/helm-annotate-${HELM_ANNOTATE_VERSION} /usr/local/bin/helm-annotate && \
     ln -s $HOME/.jx/plugins/bin/helmfile-${HELMFILE_VERSION} /usr/local/bin/helmfile
 
 ENV HELM_PLUGINS /root/.cache/helm/plugins/
