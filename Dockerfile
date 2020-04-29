@@ -2,6 +2,7 @@ FROM centos:7
 
 RUN mkdir /out
 
+# helm-annotate
 ENV HELM_ANNOTATE_VERSION 0.0.11
 
 # helmfile
