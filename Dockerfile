@@ -99,6 +99,3 @@ ENV DIFF_VERSION 3.1.1
 RUN helm plugin install https://github.com/databus23/helm-diff --version ${DIFF_VERSION} && \
     helm plugin install https://github.com/aslafy-z/helm-git.git && \
     helm plugin install https://github.com/rawlingsj/helm-gcs
-
-# custom built helm-gcs until this is merged https://github.com/hayorov/helm-gcs/pull/44
-COPY helm-gcs /root/.local/share/helm/plugins/helm-gcs/bin/helm-gcs
