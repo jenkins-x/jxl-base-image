@@ -79,9 +79,9 @@ COPY --from=2 /out /usr/local/bin
 COPY --from=0 /usr/local/gcloud /usr/local/gcloud
 
 
-RUN mkdir -p $HOME/.jx/plugins/bin
+RUN mkdir -p /root/.jx/plugins/bin
 
-COPY helm-annotate/build/helm-annotate $HOME/.jx/plugins/bin/helmfile-0.0.11
+COPY helm-annotate/build/helm-annotate /root/.jx/plugins/bin/helmfile-0.0.11
 
 ENV PATH /usr/local/bin:/usr/local/git/bin:$PATH:/usr/local/gcloud/google-cloud-sdk/bin
 
