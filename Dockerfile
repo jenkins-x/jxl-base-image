@@ -7,8 +7,12 @@ ENV HOME /builder/home
 
 # lets point jx plugins and helm at /home so we can pre-load binaries
 ENV JX_HOME /home/.jx
-# this env var is used to install helm plugins
-ENV XDG_CACHE_HOME /home
+
+# these env vars are used to install helm plugins
+ENV XDG_CACHE_HOME /home/.cache
+ENV XDG_CONFIG_HOME /home/.config
+ENV XDG_DATA_HOME /home/.data
+
 
 # helmfile
 ENV HELMFILE_VERSION 0.111.0
