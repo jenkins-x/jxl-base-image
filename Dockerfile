@@ -2,17 +2,6 @@ FROM centos:7
 
 RUN mkdir /out
 
-# this is the directory used in pipelines for home dir
-ENV HOME /builder/home
-
-# lets point jx plugins and helm at /home so we can pre-load binaries
-ENV JX_HOME /home/.jx
-
-# these env vars are used to install helm plugins
-ENV XDG_CACHE_HOME /home/.cache
-ENV XDG_CONFIG_HOME /home/.config
-ENV XDG_DATA_HOME /home/.data
-
 
 # helmfile
 ENV HELMFILE_VERSION 0.111.0
@@ -90,6 +79,16 @@ COPY --from=1 /out /usr/local/bin
 COPY --from=2 /out /usr/local/bin
 COPY --from=0 /usr/local/gcloud /usr/local/gcloud
 
+# this is the directory used in pipelines for home dir
+ENV HOME /builder/home
+
+# lets point jx plugins and helm at /home so we can pre-load binaries
+ENV JX_HOME /home/.jx
+
+# these env vars are used to install helm plugins
+ENV XDG_CACHE_HOME /home/.cache
+ENV XDG_CONFIG_HOME /home/.config
+ENV XDG_DATA_HOME /home/.data
 
 RUN mkdir -p /home/.jx/plugins/jx/bin/
 
