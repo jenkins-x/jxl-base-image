@@ -90,18 +90,18 @@ ENV XDG_CACHE_HOME /home/.cache
 ENV XDG_CONFIG_HOME /home/.config
 ENV XDG_DATA_HOME /home/.data
 
-RUN mkdir -p /home/.jx/plugins/jx/bin/
+RUN mkdir -p /home/.jx/plugins/bin/
 
-COPY helm-annotate/build/helm-annotate /home/.jx/plugins/jx/bin/helmfile-0.0.11
+COPY helm-annotate/build/helm-annotate /home/.jx/plugins/bin/helmfile-0.0.11
 
 ENV PATH /usr/local/bin:/usr/local/git/bin:$PATH:/usr/local/gcloud/google-cloud-sdk/bin
 
-RUN cp /usr/local/bin/helm /home/.jx/plugins/jx/bin/helm-3.2.0 && \
-    cp /usr/local/bin/helmfile /home/.jx/plugins/jx/bin/helmfile-0.111.0 && \
+RUN cp /usr/local/bin/helm /home/.jx/plugins/bin/helm-3.2.0 && \
+    cp /usr/local/bin/helmfile /home/.jx/plugins/bin/helmfile-0.111.0 && \
     rm /usr/local/bin/helm /usr/local/bin/helmfile && \
-    ln -s /home/.jx/plugins/jx/bin/helm-3.2.0 /usr/local/bin/helm && \
-    ln -s /home/.jx/plugins/jx/bin/helm-annotate-0.0.11 /usr/local/bin/helm-annotate && \
-    ln -s /home/.jx/plugins/jx/bin/helmfile-0.111.0 /usr/local/bin/helmfile
+    ln -s /home/.jx/plugins/bin/helm-3.2.0 /usr/local/bin/helm && \
+    ln -s /home/.jx/plugins/bin/helm-annotate-0.0.11 /usr/local/bin/helm-annotate && \
+    ln -s /home/.jx/plugins/bin/helmfile-0.111.0 /usr/local/bin/helmfile
 
 
 ENV JX_HELM3 "true"
