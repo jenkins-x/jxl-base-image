@@ -4,7 +4,7 @@ RUN mkdir /out
 
 
 # helmfile
-ENV HELMFILE_VERSION 0.111.0
+ENV HELMFILE_VERSION 0.115.0
 RUN curl -LO https://github.com/roboll/helmfile/releases/download/v${HELMFILE_VERSION}/helmfile_linux_amd64 && \
   mv helmfile_linux_amd64 /out/helmfile && \
   chmod +x /out/helmfile
@@ -16,10 +16,9 @@ RUN curl -LO  https://storage.googleapis.com/kubernetes-release/release/v${KUBEC
   chmod +x /out/kubectl
 
 # helm 3
-# need to build from master until 3.2.1 is fixed so that helm can deploy over failed releases https://github.com/helm/helm/pull/7653#issuecomment-620209072
-# ENV HELM3_VERSION 3.2.0
-# RUN curl -f -L https://get.helm.sh/helm-v${HELM3_VERSION}-linux-386.tar.gz | tar xzv && \
-#   mv linux-386/helm /out/
+ENV HELM3_VERSION 3.2.1
+RUN curl -f -L https://get.helm.sh/helm-v${HELM3_VERSION}-linux-386.tar.gz | tar xzv && \
+    mv linux-386/helm /out/
 
 # git
 ENV GIT_VERSION 2.21.1
@@ -57,17 +56,6 @@ RUN git clone https://github.com/jenkins-x/bdd-jx.git && \
 # Adding the package path to local
 ENV PATH $PATH:/usr/local/gcloud/google-cloud-sdk/bin
 
-FROM golang:1.13
-
-RUN mkdir /out
-RUN mkdir -p /go/src/github.com/helm
-
-WORKDIR /go/src/github.com/helm
-
-RUN git clone https://github.com/helm/helm.git && \
-  cd helm && \
-  make build && \
-  mv bin/helm /out/helm
 
 # use a multi stage image so we don't include all the build tools above
 FROM centos:7
@@ -76,7 +64,6 @@ COPY --from=0 /usr/local/git /usr/local/git
 COPY --from=0 /usr/bin/make /usr/bin/make
 COPY --from=0 /out /usr/local/bin
 COPY --from=1 /out /usr/local/bin
-COPY --from=2 /out /usr/local/bin
 COPY --from=0 /usr/local/gcloud /usr/local/gcloud
 
 # this is the directory used in pipelines for home dir
@@ -96,12 +83,12 @@ COPY helm-annotate/build/helm-annotate /home/.jx/plugins/bin/helmfile-0.0.11
 
 ENV PATH /usr/local/bin:/usr/local/git/bin:$PATH:/usr/local/gcloud/google-cloud-sdk/bin
 
-RUN cp /usr/local/bin/helm /home/.jx/plugins/bin/helm-3.2.0 && \
-    cp /usr/local/bin/helmfile /home/.jx/plugins/bin/helmfile-0.111.0 && \
+RUN cp /usr/local/bin/helm /home/.jx/plugins/bin/helm-3.2.1 && \
+    cp /usr/local/bin/helmfile /home/.jx/plugins/bin/helmfile-0.115.0 && \
     rm /usr/local/bin/helm /usr/local/bin/helmfile && \
-    ln -s /home/.jx/plugins/bin/helm-3.2.0 /usr/local/bin/helm && \
+    ln -s /home/.jx/plugins/bin/helm-3.2.1 /usr/local/bin/helm && \
     ln -s /home/.jx/plugins/bin/helm-annotate-0.0.11 /usr/local/bin/helm-annotate && \
-    ln -s /home/.jx/plugins/bin/helmfile-0.111.0 /usr/local/bin/helmfile
+    ln -s /home/.jx/plugins/bin/helmfile-0.115.0 /usr/local/bin/helmfile
 
 
 ENV JX_HELM3 "true"
