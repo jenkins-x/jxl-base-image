@@ -77,6 +77,8 @@ ENV XDG_CACHE_HOME /home/.cache
 ENV XDG_CONFIG_HOME /home/.config
 ENV XDG_DATA_HOME /home/.data
 
+RUN gcloud components install kpt
+
 RUN mkdir -p /home/.jx/plugins/bin/
 
 COPY helm-annotate/build/helm-annotate /home/.jx/plugins/bin/helmfile-0.0.11
