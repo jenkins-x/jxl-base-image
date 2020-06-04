@@ -77,11 +77,16 @@ ENV XDG_CACHE_HOME /home/.cache
 ENV XDG_CONFIG_HOME /home/.config
 ENV XDG_DATA_HOME /home/.data
 
+ENV PATH /usr/local/bin:/usr/local/git/bin:$PATH:/usr/local/gcloud/google-cloud-sdk/bin
+
+ENV JX_HELM3 "true"
+
+ENV DIFF_VERSION 3.1.1
+
+RUN gcloud components install kpt --quiet
 RUN mkdir -p /home/.jx/plugins/bin/
 
 COPY helm-annotate/build/helm-annotate /home/.jx/plugins/bin/helmfile-0.0.11
-
-ENV PATH /usr/local/bin:/usr/local/git/bin:$PATH:/usr/local/gcloud/google-cloud-sdk/bin
 
 RUN cp /usr/local/bin/helm /home/.jx/plugins/bin/helm-3.2.1 && \
     cp /usr/local/bin/helmfile /home/.jx/plugins/bin/helmfile-0.115.0 && \
@@ -91,9 +96,6 @@ RUN cp /usr/local/bin/helm /home/.jx/plugins/bin/helm-3.2.1 && \
     ln -s /home/.jx/plugins/bin/helmfile-0.115.0 /usr/local/bin/helmfile
 
 
-ENV JX_HELM3 "true"
-
-ENV DIFF_VERSION 3.1.1
 RUN helm plugin install https://github.com/databus23/helm-diff --version ${DIFF_VERSION} && \
     helm plugin install https://github.com/aslafy-z/helm-git.git && \
     helm plugin install https://github.com/rawlingsj/helm-gcs
