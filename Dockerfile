@@ -84,6 +84,7 @@ ENV JX_HELM3 "true"
 ENV DIFF_VERSION 3.1.1
 
 RUN gcloud components install kpt --quiet
+RUN gsutil cp gs://config-management-release/released/latest/linux_amd64/nomos /usr/local/bin/nomos
 RUN mkdir -p /home/.jx/plugins/bin/
 
 COPY helm-annotate/build/helm-annotate /home/.jx/plugins/bin/helmfile-0.0.11
