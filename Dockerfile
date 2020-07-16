@@ -41,7 +41,7 @@ RUN mkdir -p /usr/local/gcloud \
   /usr/local/gcloud/google-cloud-sdk/bin/gcloud components install beta && \
   /usr/local/gcloud/google-cloud-sdk/bin/gcloud components update
 
-FROM golang:1.12.17
+FROM golang:1.13
 
 RUN mkdir /out
 RUN mkdir -p /go/src/github.com/jenkins-x
