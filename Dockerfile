@@ -20,6 +20,16 @@ ENV HELM3_VERSION 3.2.1
 RUN curl -f -L https://get.helm.sh/helm-v${HELM3_VERSION}-linux-386.tar.gz | tar xzv && \
     mv linux-386/helm /out/
 
+ENV TERRAFORM 0.12.17
+RUN wget https://releases.hashicorp.com/terraform/${TERRAFORM}/terraform_${TERRAFORM}_linux_amd64.zip && \
+  unzip terraform_${TERRAFORM}_linux_amd64.zip && \
+  chmod +x terraform && mv terraform /usr/bin/terraform && rm terraform_${TERRAFORM}_linux_amd64.zip
+
+ENV TERRAGRUNT_VERSION 0.21.2
+RUN curl -f -Lo terragrunt https://github.com/gruntwork-io/terragrunt/releases/download/v${TERRAGRUNT_VERSION}/terragrunt_linux_amd64 && \
+  chmod +x terragrunt && \
+  mv terragrunt /usr/bin
+  
 # git
 ENV GIT_VERSION 2.21.1
 RUN yum install -y curl-devel expat-devel gettext-devel openssl-devel zlib-devel && \
