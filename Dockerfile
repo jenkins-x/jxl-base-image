@@ -2,7 +2,7 @@ FROM centos:7
 
 RUN mkdir /out
 
-RUN yum install unzip
+RUN yum install -y unzip
 
 # helmfile
 ENV HELMFILE_VERSION 0.115.0
